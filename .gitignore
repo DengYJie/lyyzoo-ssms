@@ -1,9 +1,7 @@
-#gitignore
-
-RemoteSystemsTempFiles
-bulid
+target/
+.idea/
+*.iml
 .settings
 .classpath
 .project
-
-
+RemoteSystemsTempFiles
