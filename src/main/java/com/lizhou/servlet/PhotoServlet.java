@@ -69,6 +69,7 @@ public class PhotoServlet extends HttpServlet {
 		if(is != null){
 			byte[] b = new byte[is.available()];
 			is.read(b);
+			response.setContentType("image/jpeg");
 			response.getOutputStream().write(b, 0, b.length);
 		}
 	}

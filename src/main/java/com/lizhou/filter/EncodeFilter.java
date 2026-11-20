@@ -27,8 +27,12 @@ public class EncodeFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) rep;
 		//设置编码格式
 		request.setCharacterEncoding("UTF-8");
-		//设置返回类型
-		response.setContentType("text/html; charset=utf-8");
+		//静态资源由容器决定 MIME 类型，强制 text/html 会导致现代浏览器拒绝加载 CSS/JS
+		String uri = ((HttpServletRequest) req).getRequestURI();
+		if(!uri.matches(".*\\.(css|js|png|gif|jpg|jpeg|ico|woff|woff2|ttf|eot|svg)$")){
+			//设置返回类型
+			response.setContentType("text/html; charset=utf-8");
+		}
 		//放行资源
 		chain.doFilter(request, response);
 	}

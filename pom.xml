@@ -74,7 +74,6 @@
       <version>3.8</version>
     </dependency>
 
-    <!-- 作者自研的上传/下载组件，无公开 Maven 坐标 -->
     <dependency>
       <groupId>com.lizhou</groupId>
       <artifactId>fileload</artifactId>

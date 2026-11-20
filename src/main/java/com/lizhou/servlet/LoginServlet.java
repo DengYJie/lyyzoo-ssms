@@ -110,6 +110,7 @@ public class LoginServlet extends HttpServlet {
 		//生成验证码图片
 		BufferedImage vImg = vcGenerator.generatorRotateVCodeImage(vcode, true);
 		//输出图像
+		response.setContentType("image/gif");
 		ImageIO.write(vImg, "gif", response.getOutputStream());
 	}
 	

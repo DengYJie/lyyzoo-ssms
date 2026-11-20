@@ -67,10 +67,10 @@ public class SystemService {
 	 */
 	public SystemInfo editSystemInfo(String name, String value) {
 		//修改数据库
-		dao.update("UPDATE system SET "+name+" = ?", new Object[]{value});
+		dao.update("UPDATE `system` SET "+name+" = ?", new Object[]{value});
 		//重新加载数据
 		//获取系统初始化对象
-    	SystemInfo sys = (SystemInfo) dao.getObject(SystemInfo.class, "SELECT * FROM system", null);
+    	SystemInfo sys = (SystemInfo) dao.getObject(SystemInfo.class, "SELECT * FROM `system`", null);
     	return sys;
 	}
 	
