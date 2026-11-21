@@ -36,9 +36,9 @@
       <version>0.9.5.5</version>
     </dependency>
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.33</version>
+      <groupId>org.opengauss</groupId>
+      <artifactId>opengauss-jdbc</artifactId>
+      <version>7.0.0-RC3-og</version>
     </dependency>
     <dependency>
       <groupId>commons-dbutils</groupId>

@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLEncoder;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -109,7 +110,7 @@ public class ScoreService {
                     "INSERT INTO exam(name, time, remark, type, gradeid, clazzid) value(?,?,?,?,?,?)",
                     new Object[]{
                             exam.getName(),
-                            exam.getTime(),
+                            toSqlDate(exam.getTime()),
                             exam.getRemark(),
                             exam.getType(),
                             exam.getGradeid(),
@@ -190,6 +191,18 @@ public class ScoreService {
         } finally {
             MysqlTool.closeConnection();
         }
+    }
+
+    /**
+     * 将 {@link java.util.Date} 转换为 DATE 列参数。
+     * openGauss JDBC 无法为 java.util.Date 推断 SQL 类型（MySQL 可以），
+     * 因此 DATE 列必须显式传 java.sql.Date；null 仍按 NULL 绑定，保持列可空语义。
+     */
+    private static Date toSqlDate(java.util.Date time) {
+        if (time == null) {
+            return null;
+        }
+        return new Date(time.getTime());
     }
 
     /**

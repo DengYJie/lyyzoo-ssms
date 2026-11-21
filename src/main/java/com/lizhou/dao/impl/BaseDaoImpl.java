@@ -178,14 +178,18 @@ public class BaseDaoImpl implements BaseDaoInter {
     }
 
     public int insertReturnKeysTransaction(Connection conn, String sql, Object[] param) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+        String insertSql = sql.trim();
+        if (insertSql.endsWith(";")) {
+            insertSql = insertSql.substring(0, insertSql.length() - 1);
+        }
+        // B 模式把驱动生成的 RETURNING "id" 解析为字符串。
+        try (PreparedStatement ps = conn.prepareStatement(insertSql + " RETURNING id")) {
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     ps.setObject(i + 1, param[i]);
                 }
             }
-            ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
+            try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) {
                     throw new SQLException("Insert returned no id");
                 }
