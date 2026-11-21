@@ -4,16 +4,14 @@
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="jdbcUrl">jdbc:mysql://localhost:3306/ssms</property>
 		<property name="user">root</property>
-		<property name="password">root</property>
+		<property name="initialPoolSize">1</property>
+		<property name="minPoolSize">1</property>
+		<property name="maxPoolSize">10</property>
+		<property name="checkoutTimeout">10000</property>
+		<property name="acquireRetryAttempts">3</property>
+		<property name="breakAfterAcquireFailure">true</property>
+		<property name="preferredTestQuery">SELECT 1</property>
+		<property name="testConnectionOnCheckout">true</property>
 	</default-config>
-	
-	<!-- <default-config>
-		<property name="driverClass">com.mysql.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://192.168.1.13:3306/df07fb99668844964bc0266b841e65ed9</property>
-		<property name="user">5d8cf882-2db4</property>
-		<property name="password">aa19a42d-1d5a</property>
-	</default-config> -->
-	
-	
 </c3p0-config>
 

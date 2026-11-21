@@ -12,6 +12,24 @@ public class MysqlTool {
     private static final ComboPooledDataSource dataSource = new ComboPooledDataSource();
     private static final ThreadLocal<Connection> tl = new ThreadLocal<Connection>();
 
+    static {
+        String url = System.getProperty("ssms.jdbc.url", System.getenv("SSMS_DB_URL"));
+        String user = System.getProperty("ssms.jdbc.user", System.getenv("SSMS_DB_USER"));
+        String password = System.getProperty("ssms.jdbc.password", System.getenv("SSMS_DB_PASSWORD"));
+        if (url != null) {
+            dataSource.setJdbcUrl(url);
+        }
+        if (user != null) {
+            dataSource.setUser(user);
+        }
+        if (password != null) {
+            dataSource.setPassword(password);
+        }
+        if (dataSource.getPassword() == null || dataSource.getPassword().isEmpty()) {
+            throw new IllegalStateException("Set SSMS_DB_PASSWORD or -Dssms.jdbc.password");
+        }
+    }
+
     public static DataSource getDataSource() {
         return dataSource;
     }
